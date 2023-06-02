@@ -10,6 +10,10 @@ public class DataManager : MonoBehaviour
 
     public string playerName;
     public int playerScore = 0;
+    public int index;
+    //public bool playerExists;
+    public List<string> playerProfiles = new List<string>();
+    public List<int> playerHighScore = new List<int>();
 
     // Start is called before the first frame update
     private void Awake()
@@ -21,7 +25,8 @@ public class DataManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        LoadData();
+        
+        
     }
 
     [System.Serializable]
@@ -29,6 +34,10 @@ public class DataManager : MonoBehaviour
     {
         public string playerName;
         public int playerScore;
+        public int index;
+        //public bool playerExists;
+        public List<string> playerProfiles;
+        public List<int> playerHighscore;
     }
 
     public void SaveData()
@@ -36,6 +45,10 @@ public class DataManager : MonoBehaviour
         SavePlayerData data = new SavePlayerData();
         data.playerName = playerName;
         data.playerScore = playerScore;
+        data.playerProfiles = playerProfiles;
+        data.playerHighscore = playerHighScore;
+        data.index = index;
+        //data.playerExists = playerExists;
 
         string json = JsonUtility.ToJson(data);
         File.WriteAllText(Application.persistentDataPath + "/savedata.json", json);
@@ -51,6 +64,10 @@ public class DataManager : MonoBehaviour
 
             playerName = data.playerName;
             playerScore = data.playerScore;
+            playerProfiles = data.playerProfiles;
+            playerHighScore = data.playerHighscore;
+            index = data.index;
+            //playerExists = data.playerExists;
         }
     }
 }

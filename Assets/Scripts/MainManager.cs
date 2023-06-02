@@ -20,6 +20,7 @@ public class MainManager : MonoBehaviour
     private int m_Points;
     
     private bool m_GameOver = false;
+    
 
     
     void Start()
@@ -66,6 +67,15 @@ public class MainManager : MonoBehaviour
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Time.timeScale = 0;
+        }
+        else if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            Time.timeScale = 1;
+        }
     }
 
     void AddPoint(int point)
@@ -80,12 +90,14 @@ public class MainManager : MonoBehaviour
         if (m_Points > DataManager.Instance.playerScore)
         {
             DataManager.Instance.playerScore = m_Points;
+            DataManager.Instance.SaveData();
         }
         GameOverText.SetActive(true);
     }
 
     public void BestScore()
     {
+        int p_index = DataManager.Instance.index;
         //BestScoreParent.SetActive(true);
         BestScoreText.SetText(DataManager.Instance.playerName + " : " + DataManager.Instance.playerScore);
     }
